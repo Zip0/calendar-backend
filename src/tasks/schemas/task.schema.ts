@@ -10,7 +10,7 @@ export class Task {
   @Prop()
   id: number;
 
-  @Prop()
+  @Prop({nullable: true})
   content: string;
 
   @Prop()

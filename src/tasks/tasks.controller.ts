@@ -1,80 +1,37 @@
-import { Controller, Get, Param, Post, Body, Query, Delete, Put } from '@nestjs/common';
+import { Controller, Post, Body, Get, Put, Delete,Param} from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { CreateTaskDto } from './dto/create-task.dto';
-import {
-    Injectable
-  } from '@nestjs/common';
-import {
-    InjectModel
-  } from '@nestjs/mongoose';
-  import {
-    Model
-  } from 'mongoose';
-import {
-  Task,
-  TaskDocument
-} from './schemas/task.schema';
+import { Task } from '../entities/task.entity';
 
 @Controller('tasks')
 export class TasksController {
-    constructor(private tasksService: TasksService) {}
 
+    constructor(private service: TasksService) { }
 
-    @Post()
-    create(@Body() createTaskDto: CreateTaskDto) {
-      return this.tasksService.create(createTaskDto);
-    }
-
-
-    @Get()
-
-
-    // async create(createTaskDto: CreateTaskDto): Promise < TaskDocument > {
-    //     const task = new this.taskModel(createTaskDto);
-    //     return task.save();
-    // }
-    // async create(@Body() createTaskDTO: CreateTaskDTO) {
-    //     const task = await this.tasksService.create(createTaskDTO);
-    //     return 'task created: ' + task;
-    // }
-    // @Get()
-    // async getTasks() {
-    //     const tasks = await this.tasksService.getTasks();
-    //     return tasks;
-    // }
     @Get('all')
-    async findAll() {
-        const tasks = await this.tasksService.findAll();
-        return tasks;
+    getAll() {
+        // return this.service.getTask(5);
+        return this.service.getTasks();
     }
 
-    @Get('test')
-    async test() {
-        
-        return 'tasks oh wow';
+    @Get(':id')
+    get(@Param() params) {
+        // return params.id;
+        return this.service.getTask(params.id);
     }
 
-    @Get(':taskID')
-    async getTask(@Param('taskID') taskID) {
-        const task = await this.tasksService.getTask(taskID);
-        console.log(task);
-        return task;
-    }
 
-    // @Post()
-    // async create(@Body() createTaskDTO: CreateTaskDTO) {
-    //     const task = await this.tasksService.create(createTaskDTO);
-    //     return task;
-    // }
     @Post()
-    async addTask(@Body() CreateTaskDTO: CreateTaskDto) {
-        const task = await this.tasksService.addTask(CreateTaskDTO);
-        return task;
+    create(@Body() task: Task) {
+        return this.service.createTask(task);
     }
 
-    @Delete()
-    async deleteTask(@Query() query) {
-        const tasks = await this.tasksService.deleteTask(query.taskID);
-        return tasks;
+    @Put()
+    update(@Body() task: Task) {
+        return this.service.updateTask(task);
+    }
+
+    @Delete(':id')
+    deleteTask(@Param() params) {
+        return this.service.deleteTask(params.id);
     }
 }
