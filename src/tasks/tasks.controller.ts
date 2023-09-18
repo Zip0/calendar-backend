@@ -1,11 +1,17 @@
-import { Controller, Post, Body, Get, Put, Delete,Param} from '@nestjs/common';
+import { Controller, Post, Body, Get, Put, Delete,Param, Patch} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from '../entities/task.entity';
+import { FindOneAndUpdateOptions } from 'typeorm';
 
 @Controller('tasks')
 export class TasksController {
 
     constructor(private service: TasksService) { }
+
+    @Patch(":id/:content/:done")
+    update(@Param() params) {
+        return this.service.completeTask(params.id, params.content, params.done);
+    }
 
     @Get('all')
     getAll() {
@@ -25,13 +31,9 @@ export class TasksController {
         return this.service.createTask(task);
     }
 
-    @Put()
-    update(@Body() task: Task) {
-        return this.service.updateTask(task);
-    }
 
     @Delete(':id')
-    deleteTask(@Param() params) {
+    delete(@Param() params) {
         return this.service.deleteTask(params.id);
     }
 }
