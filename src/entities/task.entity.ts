@@ -5,9 +5,9 @@ export class Task {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 1000, nullable: true})
-    content:string;
+    @Column({ length: 1000, nullable: true })
+    content: string;
 
-    @Column({default: false}) 
-    done:boolean;
+    @Column({ default: false })
+    done: boolean;
 }

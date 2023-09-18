@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
 import { Document } from "mongoose";
 
-// export type TaskDocument = HydratedDocument <Task>;
+/*  Oversight from early development but it works.
+*   TODO: Unify everything for TypeORM and remove unused dependencies
+*/
+
 export type TaskDocument = Task & Document;
 
 @Schema()
@@ -10,7 +12,7 @@ export class Task {
   @Prop()
   id: number;
 
-  @Prop({nullable: true})
+  @Prop({ nullable: true })
   content: string;
 
   @Prop()
