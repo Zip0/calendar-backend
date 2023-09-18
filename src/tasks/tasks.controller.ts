@@ -14,6 +14,7 @@ export class TasksController {
 
     @Get('all')
     getAll() {
+        
         return this.service.getTasks();
     }
 
