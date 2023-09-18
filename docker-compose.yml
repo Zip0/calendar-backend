@@ -1,0 +1,72 @@
+
+version: "3.8"
+volumes:
+  data:
+services:
+
+
+  # mariadb:
+  #   image: mysql
+  #   environment:
+  #     # MYSQL_HOST: mariadb
+  #     MYSQL_ROOT_PASSWORD: 1234
+  #     MYSQL_DATABASE: calendar
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: 1234
+  #   volumes:
+  #     - data:/var/lib/mysql
+  #     - ./dev/mariadb:/docker-entrypoint-initdb.d
+  #   ports:
+  #     - "3306:3306"
+  #   expose:
+  #     - 3306
+
+
+
+
+
+
+  calendar-frontend:
+    image: calendar-frontend
+    ports:
+      - "3000:3000"
+
+
+
+
+  # mariadb:
+  #   image: mariadb:10.6.12
+  #   networks:
+  #     - mariadb
+  # #   volumes:
+  # #     - /data/postgres:/data/postgres
+  #   env_file:
+  #     - .env
+
+  # pgadmin:
+  #   image: dpage/pgadmin4:6.18
+  #   networks:
+  #     - postgres
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - /data/pgadmin:/root/.pgadmin
+  #   env_file:
+  #     - docker.env
+ 
+  calendar-backend:
+    image: calendar-backend
+
+    volumes:
+      - ./src:/usr/app/
+    env_file:
+      - .env
+    # environment:
+    #   MYSQL_HOST: "mariadb"
+    ports:
+      - "4000:4000"
+    # depends_on:
+    #   - mariadb
+    # links:
+    #   - mariadb
+ 

@@ -5,6 +5,8 @@ const cors = require("cors");
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const port = process.env.NESTJS_APP_DOCKER_PORT
+
   const options = {
     "origin": "http://localhost:3000",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
