@@ -26,10 +26,10 @@ services:
 
 
 
-  calendar-frontend:
-    image: calendar-frontend
-    ports:
-      - "3000:3000"
+  # calendar-frontend:
+  #   image: calendar-frontend
+  #   ports:
+  #     - "3000:3000"
 
 
 
